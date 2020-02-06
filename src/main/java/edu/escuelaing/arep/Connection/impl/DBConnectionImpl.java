@@ -15,7 +15,7 @@ public class DBConnectionImpl implements DBConnection{
 	
 	private  String user = "krjcafarpdqaqk";
     private  String passw = "181334f00fdee6a334d4093c731df9855486e18430ae3bf3f83dd11e0365a85d";
-    private  String url = "jdbc:postgresql://ec2-3-213-192-58.compute-1.amazonaws.com:5432/d3fh8fvthfbg5h?ssl=true&sslmode=require";
+    private  String url = "jdbc:postgresql://ec2-3-213-192-58.compute-1.amazonaws.com:5432/d3fh8fvthfbg5h?ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory";
     private  Connection connection;
     
     public DBConnectionImpl() throws SQLException {
@@ -25,13 +25,13 @@ public class DBConnectionImpl implements DBConnection{
 	
 	public void conectar() throws SQLException {
 		try {
-			Class.forName("org.postgresql.Driver");
+			//Class.forName("org.postgresql.Driver");
 	        connection = DriverManager.getConnection(url, user, passw);
 	     } catch (SQLException ex) {
 	        throw new SQLException(ex);
-	     } catch (ClassNotFoundException ex) {
+	     } /*catch (ClassNotFoundException ex) {
 	        throw new ClassCastException(ex.getMessage());
-	     }
+	     }*/
 		
 	}
 	
@@ -56,7 +56,6 @@ public class DBConnectionImpl implements DBConnection{
 	         }
 	         rs.close();
 	         st.close();
-	         connection.close();
 	      }
 	      catch (Exception e)
 	      {
