@@ -13,10 +13,10 @@ import edu.escuelaing.arep.Model.estudiante;
 public class DBConnectionImpl implements DBConnection{
 
 	
-	private static String user = "ldxscymoompeab";
-    private static String passw = "813a08acb3e71767a7186c311a6056a3982ab2a6213255e56c7149663034c06a";
-    private static String url = "jdbc:postgresql://ec2-34-235-108-68.compute-1.amazonaws.com:5432/d38ekv52akfpdl?ssl=true&sslmode=require";
-    private static Connection connection;
+	private  String user = "krjcafarpdqaqk";
+    private  String passw = "181334f00fdee6a334d4093c731df9855486e18430ae3bf3f83dd11e0365a85d";
+    private  String url = "jdbc:postgresql://ec2-3-213-192-58.compute-1.amazonaws.com:5432/d3fh8fvthfbg5h?ssl=true&sslmode=require";
+    private  Connection connection;
     
     public DBConnectionImpl() throws SQLException {
     	conectar();

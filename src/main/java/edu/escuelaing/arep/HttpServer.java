@@ -48,14 +48,7 @@ public class HttpServer {
 		                         new InputStreamReader(clientSocket.getInputStream()));
 		   String inputLine, outputLine;
 		   
-		   DBConnectionImpl con=null;
-			try {
-				con = new DBConnectionImpl();
-				con.conectar();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} 
+		    
 		   
 		   
 		   StringBuilder stringBuilder = new StringBuilder();
@@ -67,6 +60,15 @@ public class HttpServer {
 	    	      System.out.println("Recibí: " + inputLine);
 	    	      if (!in.ready()) {break; }
 	    	   }
+	       
+	       DBConnectionImpl con=null;
+			try {
+				con = new DBConnectionImpl();
+				con.conectar();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	    	   outputLine = 
 	    	          "<!DOCTYPE html>" + 
 	    	          "<html>" + 
