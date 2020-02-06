@@ -2,7 +2,12 @@ package edu.escuelaing.arep;
 
 import org.apache.commons.io.FilenameUtils;
 
+import edu.escuelaing.arep.Connection.impl.DBConnectionImpl;
+import edu.escuelaing.arep.Model.estudiante;
+
 import java.net.*;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.io.*;
@@ -43,29 +48,63 @@ public class HttpServer {
 		                         new InputStreamReader(clientSocket.getInputStream()));
 		   String inputLine, outputLine;
 		   
+		   DBConnectionImpl con=null;
+			try {
+				con = new DBConnectionImpl();
+				con.conectar();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} 
+		   
+		   
 		   StringBuilder stringBuilder = new StringBuilder();
 		   
 		   Pattern pattern = Pattern.compile("GET /([^\\s]+)");
 	       Matcher matcher = null;
 		   
-		   while ((inputLine = in.readLine()) != null) {
-		      System.out.println("Recibí: " + inputLine);
-		      stringBuilder.append(inputLine);
-		      if (!in.ready()) {
-		    	  matcher = pattern.matcher(stringBuilder.toString());
-	              if (matcher.find()) {
-	                  String req = matcher.group().substring(5);
-	                  System.out.println("VALUE: " + req);
-	                  returnRequest(req);
-	              }
-		    	  
-		    	  break; }
-		   }
-		  
-		    out.close(); 
-		    in.close(); 
-		    clientSocket.close(); 
-		    //serverSocket.close();
+	       while ((inputLine = in.readLine()) != null) {
+	    	      System.out.println("Recibí: " + inputLine);
+	    	      if (!in.ready()) {break; }
+	    	   }
+	    	   outputLine = 
+	    	          "<!DOCTYPE html>" + 
+	    	          "<html>" + 
+	    	          "<head>" + 
+	    	          "<meta charset=\"UTF-8\">" + 
+	    	          "<title>Base de Datos</title>\n" + 
+	    	          "</head>" + 
+	    	          "<body>" + 
+	    	          "<h1>Tabla Estudiante</h1>" + 
+	    	          "<table border=\"1\">"+
+	    	          "<tr>"+
+	    	          "<td>Id</td>"+
+	    	          "<td>Nombres</td>"+
+	    	          "<td>Apellidos</td>"+
+	    	          "<td>Semestre</td>"+
+	    	          "<td>Carrera</td>"+
+	    	          "</tr>";
+	    	     
+	    	          ArrayList<estudiante> lista = con.getEstudiantes();
+	    	          for (int i=0;i<lista.size();i++)
+	    	          {
+	    	             outputLine=outputLine +"<tr>"+
+	    	            		 				"<td>"+lista.get(i).getCarnet()+"</td>"+
+	    	            		 				"<td>"+lista.get(i).getNombres()+"</td>"+
+							    	            "<td>"+lista.get(i).getApellidos()+"</td>"+
+							    	            "<td>"+lista.get(i).getSemestre()+"</td>"+
+							    	            "<td>"+lista.get(i).getCarrera()+"</td>"+
+							    	            "</tr>";
+	    	          }
+	    	          
+	    	          outputLine=outputLine +"</table>"+
+	    	          "</body>" + 
+	    	          "</html>"; 
+	    	    out.println(outputLine);
+	    	    out.close(); 
+	    	    in.close(); 
+	    	    clientSocket.close(); 
+	    	    serverSocket.close(); 
 	   }
   }
   

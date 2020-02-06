@@ -15,8 +15,13 @@ public class DBConnectionImpl implements DBConnection{
 	
 	private static String user = "ldxscymoompeab";
     private static String passw = "813a08acb3e71767a7186c311a6056a3982ab2a6213255e56c7149663034c06a";
-    private static String url = "jdbc:postgresql://ec2-34-235-108-68.compute-1.amazonaws.com:5432/d38ekv52akfpdl";
+    private static String url = "jdbc:postgresql://ec2-34-235-108-68.compute-1.amazonaws.com:5432/d38ekv52akfpdl?ssl=true&sslmode=require";
     private static Connection connection;
+    
+    public DBConnectionImpl() throws SQLException {
+    	conectar();
+    }
+    
 	
 	public void conectar() throws SQLException {
 		try {
@@ -31,7 +36,7 @@ public class DBConnectionImpl implements DBConnection{
 	}
 	
 	
-	public static ArrayList<estudiante> getEstudiantes()
+	public ArrayList<estudiante> getEstudiantes()
 	   {
 			ArrayList<estudiante> listaContactos=new ArrayList<estudiante>();
 	      try
