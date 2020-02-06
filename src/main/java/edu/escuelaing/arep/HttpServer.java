@@ -106,7 +106,7 @@ public class HttpServer {
 	    	          "</body>" + 
 	    	          "</html>"; 
 	    	    out.println(outputLine);
-	    	    System.err.println(outputLine);
+	    	  
 	    	    out.close(); 
 	    	    in.close(); 
 	    	    clientSocket.close(); 

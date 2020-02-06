@@ -9,7 +9,12 @@ import java.util.ArrayList;
 
 import edu.escuelaing.arep.Connection.DBConnection;
 import edu.escuelaing.arep.Model.estudiante;
-
+/**
+ * Implementacion de la clase DBConnection que conecta a una base de datos especifica
+ * 
+ * @author santiago.vega-r
+ *
+ */
 public class DBConnectionImpl implements DBConnection{
 
 	
@@ -22,20 +27,26 @@ public class DBConnectionImpl implements DBConnection{
     	conectar();
     }
     
-	
+	/**
+	 * Clase que conecta a la base de datos
+	 */
 	public void conectar() throws SQLException {
 		try {
-			//Class.forName("org.postgresql.Driver");
+			Class.forName("org.postgresql.Driver");
 	        connection = DriverManager.getConnection(url, user, passw);
 	     } catch (SQLException ex) {
 	        throw new SQLException(ex);
-	     } /*catch (ClassNotFoundException ex) {
+	     } catch (ClassNotFoundException ex) {
 	        throw new ClassCastException(ex.getMessage());
-	     }*/
+	     }
 		
 	}
 	
-	
+	/**
+	 * Devuelve una lista de todos los estudiantes que se encuentran en la base de datos
+	 * 
+	 * @return Lista de estudiantes
+	 */
 	public ArrayList<estudiante> getEstudiantes()
 	   {
 			ArrayList<estudiante> listaContactos=new ArrayList<estudiante>();
